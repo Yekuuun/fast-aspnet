@@ -10,5 +10,5 @@ public class BaseEntity {
     public int Id {get; set;}
 
     [Column("creation_date")]
-    public DateTime CreationDate {get; set;}
+    public DateTime CreationDate {get; set;} = DateTime.Now;
 }

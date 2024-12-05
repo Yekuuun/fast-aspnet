@@ -19,6 +19,16 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 
+//MAPPER
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+//SERVICES
+builder.Services.AddScoped<IUserService, UserService>();
+
+//REPOSITORIES
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<PostRepository>();
+
 /*
 * CORS POLICY => MUST BE CONFIGURED FOR YOUR OWN CAS => THIS IS A SAMPLE DEMO.
 */
