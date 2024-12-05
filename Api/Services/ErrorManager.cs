@@ -1,4 +1,4 @@
-namespace SharpApi.Services;
+namespace Api.Services;
 
 public static class ErrorManager
 {

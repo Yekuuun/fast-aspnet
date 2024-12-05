@@ -24,6 +24,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //SERVICES
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPostService, PostService>();
 
 //REPOSITORIES
 builder.Services.AddScoped<UserRepository>();

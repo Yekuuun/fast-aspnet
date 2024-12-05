@@ -1,6 +1,5 @@
 
 using AutoMapper;
-using SharpApi.Services;
 
 namespace Api.Services;
 
