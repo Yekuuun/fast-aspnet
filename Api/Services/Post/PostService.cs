@@ -132,6 +132,8 @@ public class PostService(IMapper mapper, PostRepository repository) : IPostServi
             {
                 int totalPages = (int)Math.Ceiling((double)total / pageSize);
                 response.Data = _mapper.Map<List<PostDto>>(await _repository.GetUserPostPages(page, pageSize, userId));
+                response.Page = page;
+                response.Total = totalPages;
                 return response;
             }
         }

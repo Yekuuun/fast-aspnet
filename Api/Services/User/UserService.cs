@@ -101,6 +101,8 @@ public class UserService(UserRepository repository, IMapper mapper) : IUserServi
 
                 List<User> users = await _repository.PaginteAsync(page, pageSize);
                 response.Data = _mapper.Map<List<UserDto>>(users);
+                response.Page = page;
+                response.Total = totalPages;
                 return response;
             }
         }
