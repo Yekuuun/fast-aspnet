@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
+[EnableRateLimiting("fixed")]
 public class UsersController(IUserService service) : ControllerBase
 {
     private readonly IUserService _service = service;

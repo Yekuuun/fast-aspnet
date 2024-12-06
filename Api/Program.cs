@@ -1,3 +1,5 @@
+using System.Threading.RateLimiting;
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +48,26 @@ builder.Services.AddCors(options =>
             });
 });
 
+/*
+* Adding a rate limiting base on IP => avoiding request spamming.
+* NOTES : you can config your own permitLimit & window size. => THIS IS A SAMPLE.
+*/
+builder.Services.AddRateLimiter(options =>
+{
+    _ = options.AddPolicy("fixed", httpContext =>
+    RateLimitPartition.GetFixedWindowLimiter(
+        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(),
+        factory: partition => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = 25,
+            Window = TimeSpan.FromMinutes(5)
+        }
+    ));
+    
+    // Utilisation de l'adresse IP comme identifiant de l'utilisateur
+    options.RejectionStatusCode = 429;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,6 +76,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+/*
+* Rate limiter.
+*/
+app.UseRateLimiter();
+
+/*
+* Adding HTTP secure headers.
+*/
+app.UseMiddleware<ContentSecHeaders>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

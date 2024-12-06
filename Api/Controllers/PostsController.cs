@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
+[EnableRateLimiting("fixed")] // You can use it on specific controllers => THIS IS A SAMPLE for DEMO.
 public class PostsController(IPostService service) : ControllerBase
 {
     private readonly IPostService _service = service;
