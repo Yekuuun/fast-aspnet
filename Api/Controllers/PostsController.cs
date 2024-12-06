@@ -37,6 +37,10 @@ public class PostsController(IPostService service) : ControllerBase
     [HttpPost("")]
     public async Task<ActionResult<ServiceResponse<PostDto>>> AddPost(AddPostDto post)
     {
+        if(!PayloadValidator.IsDcoPayloadSafe(post))
+        {
+            return PayloadValidator.BuildError<PostDto>("bad payload");
+        }
         ServiceResponse<PostDto> response = await _service.AddPost(post, 1); //USING TOKEN BASE USER ID. => TO DO.
         ActionResult<ServiceResponse<PostDto>> result = await HttpManager.HttpResponse(response);
         return result;
@@ -45,6 +49,10 @@ public class PostsController(IPostService service) : ControllerBase
     [HttpPut("")]
     public async Task<ActionResult<ServiceResponse<PostDto>>> UpdatePost(UpdatePostDto payload)
     {
+        if(!PayloadValidator.IsDcoPayloadSafe(payload))
+        {
+            return PayloadValidator.BuildError<PostDto>("bad payload");
+        }
         ServiceResponse<PostDto> response = await _service.UpdatePost(payload, 1); //USING TOKEN BASE USER ID. => TO DO.
         ActionResult<ServiceResponse<PostDto>> result = await HttpManager.HttpResponse(response);
         return result;

@@ -37,6 +37,11 @@ public class UsersController(IUserService service) : ControllerBase
     [HttpPost("")]
     public async Task<ActionResult<ServiceResponse<UserDto>>> AddUser(AddUserDto user)
     {
+        if(!PayloadValidator.IsDcoPayloadSafe(user))
+        {
+            return PayloadValidator.BuildError<UserDto>("bad payload");
+        }
+
         ServiceResponse<UserDto> response = await _service.AddUser(user);
         ActionResult<ServiceResponse<UserDto>> result = await HttpManager.HttpResponse(response);
         return result;
@@ -45,6 +50,10 @@ public class UsersController(IUserService service) : ControllerBase
     [HttpPut("")]
     public async Task<ActionResult<ServiceResponse<UserDto>>> UpdateUser(UpdateUserDto payload)
     {
+        if(!PayloadValidator.IsDcoPayloadSafe(payload))
+        {
+            return PayloadValidator.BuildError<UserDto>("bad payload");
+        }
         ServiceResponse<UserDto> response = await _service.UpdateUser(payload, 1); //USING TOKEN BASE USER ID. => TO DO.
         ActionResult<ServiceResponse<UserDto>> result = await HttpManager.HttpResponse(response);
         return result;
