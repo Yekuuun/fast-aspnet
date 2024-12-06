@@ -38,3 +38,31 @@ Creating migrations ? : `dotnet ef migrations add <migration_name>`
 ---
 
 ## Sec features :
+
+This section contains description about good practices i learned after completing pentest audits for other API's.
+
+### HTTP headers
+Add custom http headers to yours requests preventing from attacks.
+
+Wich add ? => <a href="https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html">OWASP CheatSheet</a>
+
+<img src="https://github.com/Yekuuun/fast-aspnet/blob/main/assets/content-sec-curl.png" alt="DebugInfo" />
+
+<img src="https://github.com/Yekuuun/fast-aspnet/blob/main/assets/content-sec.png" alt="DebugInfo" />
+
+---
+
+### Rate limiting
+A rate limiter is a mechanism used in web applications and APIs to control the number of requests a client can make to a server within a specified time frame. Here's a concise overview:
+Purpose of a Rate Limiter:
+
+- Prevent Abuse: Protect your server from potential Denial of Service (DoS) attacks by limiting the number of requests from a single source.
+- Resource Management: Ensure fair usage of server resources by preventing any single client from overwhelming the system.
+- Cost Control: Reduce infrastructure costs by limiting excessive API calls, especially in cloud-based environments where usage directly impacts billing.
+- Performance Optimization: Maintain consistent performance by preventing any single client from monopolizing server resources.
+
+Rate limiter - IP based.
+
+<img src="https://github.com/Yekuuun/fast-aspnet/blob/main/assets/rate-limiter.png" alt="DebugInfo" />
+
+---
