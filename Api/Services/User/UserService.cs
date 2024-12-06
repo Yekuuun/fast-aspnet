@@ -88,7 +88,7 @@ public class UserService(UserRepository repository, IMapper mapper) : IUserServi
         Pagination<UserDto> response = new();
         try
         {
-            page = page == 0 ? page++ : page;
+            page = page == 0 ? ++page : page;
 
             int total = await _repository.CountAsync();
             if(total == 0)
@@ -116,13 +116,16 @@ public class UserService(UserRepository repository, IMapper mapper) : IUserServi
     /// <param name="payload"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    /// <exception cref="NullReferenceException"></exception>
+    /// <exception cref="Exception"></exception>
     public async Task<ServiceResponse<UserDto>> UpdateUser(UpdateUserDto payload, int id)
     {
         ServiceResponse<UserDto> response = new();
         try
         {
             User u = await _repository.GetByIdAsync(id) ?? throw new NullReferenceException("user not found");
+
+            u.Email = payload.Email;
+            u.Username = payload.Username;
 
             await _repository.UpdateEntity(u);
 

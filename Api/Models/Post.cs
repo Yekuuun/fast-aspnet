@@ -23,5 +23,5 @@ public class Post : BaseEntity
     //FK
     [Column("user_id")]
     public int UserId {get; set;}
-    public required User User {get; set;}
+    public User? User {get; set;}
 }

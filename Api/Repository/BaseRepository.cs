@@ -66,8 +66,7 @@ public class BaseRepository<E,D>(D context) where E : BaseEntity where D :DbCont
 
     public async Task UpdateEntity(E entity)
     {
-        E getE = await this.GetByIdAsync(entity.Id) ?? throw new NullReferenceException("entity not found");
-        _context.Update(getE);
+        _context.Update(entity);
         await _context.SaveChangesAsync();
     }
 

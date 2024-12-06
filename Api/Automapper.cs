@@ -9,5 +9,7 @@ public class AutoMapper : Profile
         //SOURCE -> DESTINATION
         _ = CreateMap<User, UserDto>();
         _ = CreateMap<AddUserDto, User>();
+
+        _ = CreateMap<Post, PostDto>();
     }
 }
