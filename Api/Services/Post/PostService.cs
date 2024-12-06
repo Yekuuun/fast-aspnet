@@ -126,7 +126,7 @@ public class PostService(IMapper mapper, PostRepository repository) : IPostServi
             int total = await _repository.CountUserPosts(userId);
             if(total == 0)
             {
-                return ErrorManager.ReturnPageError<PostDto>();
+                return ErrorManager.ReturnPageError<PostDto>(EErrorType.SUCCESS);
             }
             else
             {
@@ -137,7 +137,7 @@ public class PostService(IMapper mapper, PostRepository repository) : IPostServi
         }
         catch(Exception)
         {
-            return ErrorManager.ReturnPageError<PostDto>();
+            return ErrorManager.ReturnPageError<PostDto>(EErrorType.BAD);
         }
     }
 

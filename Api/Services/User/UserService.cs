@@ -93,7 +93,7 @@ public class UserService(UserRepository repository, IMapper mapper) : IUserServi
             int total = await _repository.CountAsync();
             if(total == 0)
             {
-                return ErrorManager.ReturnPageError<UserDto>();
+                return ErrorManager.ReturnPageError<UserDto>(EErrorType.SUCCESS);
             }
             else
             {
@@ -106,7 +106,7 @@ public class UserService(UserRepository repository, IMapper mapper) : IUserServi
         }
         catch(Exception)
         {
-            return ErrorManager.ReturnPageError<UserDto>();
+            return ErrorManager.ReturnPageError<UserDto>(EErrorType.BAD);
         }
     }
     

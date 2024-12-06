@@ -24,13 +24,14 @@ public static class ErrorManager
         return errorResponse;
     }
 
-    public static Pagination<T> ReturnPageError<T>() where T : BaseDto
+    public static Pagination<T> ReturnPageError<T>(EErrorType e) where T : BaseDto
     {
         Pagination<T> error = new()
         {
             Page = 0,
             Total = 0,
-            Data = []
+            Data = [],
+            ErrorType = e,
         };
 
         return error;
